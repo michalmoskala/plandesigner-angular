@@ -24,5 +24,8 @@ export class ListComponent implements OnInit {
       }
     )
   }
+  removeMonth(id) {
+    this.monthService.removeMonth(id)
+  }
 
 }

@@ -1,7 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Month } from 'src/app/common/month';
+import { Worker } from 'src/app/common/worker';
+import { Worker_Details } from 'src/app/common/worker_details'
+import { Day } from 'src/app/common/day';
 import { MonthService } from 'src/app/service/month.service';
+import { ActivatedRoute } from "@angular/router";
+import { CommonModule } from '@angular/common';
+import { BrowserModule } from '@angular/platform-browser';
 
+imports: [CommonModule, BrowserModule]
 
 @Component({
   selector: 'app-month',
@@ -10,18 +16,34 @@ import { MonthService } from 'src/app/service/month.service';
 })
 export class MonthComponent implements OnInit {
 
-  months: Month[]
+  days: Day[]
+  workers: Worker_Details[]
 
-  constructor(private monthService: MonthService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private monthService: MonthService
+    ) {}
 
   ngOnInit(): void {
-    this.getMonths()
+    const monthId=(this.route.snapshot.paramMap.get("id"))
+    this.getMonth(monthId)
+    this.getWorkerDetails(monthId)
   }
 
-  getMonths() {
-    this.monthService.getMonths().subscribe(
+  getMonth(monthId) {
+    this.monthService.getMonth(monthId).subscribe(
       data => {
-        this.months = data
+        this.days = data
+
+      }
+    )
+  }
+
+  getWorkerDetails(monthId) {
+    this.monthService.getWorkerDetailString(monthId).subscribe(
+      data => {
+        this.workers = data
+
       }
     )
   }

@@ -1,1 +1,25 @@
 <p>list works!</p>
+<div class="container">
+    <table class="table">
+    <thead>
+        <tr>
+            <th scope="col">name</th>
+            <th scope="col">start</th>
+            <th scope="col">day</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let month of months">
+            <td>{{ month.fields.name }}</td>
+            <td>{{ month.fields.starting_weekday }}</td>
+            <td>{{ month.fields.days }}</td>
+            <td>
+                <a class="btn btn-primary" routerLink="/month/{{month.pk}}" role="button">Otworz</a>
+            </td>
+            <td>
+                <a class="btn btn-primary" (click)="removeMonth(month.pk)" role="button">Usun</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</div>

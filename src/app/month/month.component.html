@@ -1,1 +1,26 @@
-<p>month works!</p>
+<p>list works!</p>
+<!-- <p>{{days}}</p>
+<div class="container">
+    <table class="table">
+    <tr>
+        <td v-for="day in days">
+            <table class="table">
+                <tr>
+                    <th>aaa</th>
+                </tr>
+                <tr>
+                    <td>abc</td>    
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+</div> -->
+
+<table class="table">
+    <tbody>
+    <tr *ngFor="let day of days">
+        <td>{{day}}</td>
+    </tr>
+</tbody>
+</table>
