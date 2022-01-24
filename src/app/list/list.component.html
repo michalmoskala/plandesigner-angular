@@ -1,5 +1,6 @@
 <p>list works!</p>
-<div class="container">
+
+<!-- <div class="container">
     <table class="table">
     <thead>
         <tr>
@@ -17,9 +18,24 @@
                 <a class="btn btn-primary" routerLink="/month/{{month.pk}}" role="button">Otworz</a>
             </td>
             <td>
-                <a class="btn btn-primary" (click)="removeMonth(month.pk)" role="button">Usun</a>
+                <a class="btn btn-primary" (click)="removeMonth(month)" role="button">Usun</a>
             </td>
         </tr>
     </tbody>
 </table>
-</div>
+</div> -->
+
+<ol>
+  <li>
+    <mat-form-field appearance="fill">
+      <mat-label>What's your name?</mat-label>
+      <input matInput (ngModel)="name">
+    </mat-form-field>
+  </li>
+  <li>
+    <button mat-raised-button (click)="openDialog()">Pick one</button>
+  </li>
+  <li *ngIf="animal">
+    You chose: <i>{{animal}}</i>
+  </li>
+</ol>

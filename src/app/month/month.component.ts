@@ -21,7 +21,7 @@ export class MonthComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private monthService: MonthService
+    private monthService: MonthService,
     ) {}
 
   ngOnInit(): void {
@@ -48,4 +48,30 @@ export class MonthComponent implements OnInit {
     )
   }
 
+  setWorkerToShift(day, worker, which_time){
+    if (which_time == 1) {day.s1_worker=worker.short_name}
+    if (which_time == 2) {day.s2_worker=worker.short_name}
+    if (which_time == 3) {day.s3_worker=worker.short_name}
+    if (which_time == 4) {day.s4_worker=worker.short_name}
+    const monthId=(this.route.snapshot.paramMap.get("id"))
+    this.monthService.setWorkerToShift(monthId, worker.name, day.number, which_time).subscribe(
+      data => {
+        this.workers = data
+
+      }
+    )
+  }
+
+  swapSpecialDay(day){
+    day.is_special=!day.is_special
+    const monthId=(this.route.snapshot.paramMap.get("id"))
+    this.monthService.swapSpecialDay(monthId, day.number).subscribe(
+      data => {
+        this.workers = data
+
+      }
+    )
+  }
+
+  
 }

@@ -1,6 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Month } from 'src/app/common/month';
 import { MonthService } from 'src/app/service/month.service';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+
+export interface DialogData {
+  animal: string;
+  name: string;
+}
 
 @Component({
   selector: 'app-list',
@@ -10,8 +16,10 @@ import { MonthService } from 'src/app/service/month.service';
 export class ListComponent implements OnInit {
 
   months: Month[]
+  animal: string;
+  name: string;
 
-  constructor(private monthService: MonthService) { }
+  constructor(private monthService: MonthService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.getMonths()
@@ -24,8 +32,42 @@ export class ListComponent implements OnInit {
       }
     )
   }
-  removeMonth(id) {
-    this.monthService.removeMonth(id)
+  
+  removeMonth(month) {
+    this.monthService.removeMonth(month.pk).subscribe(
+      data => {
+        this.months = data
+      }
+    )
+  }   
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
+      width: '250px',
+      data: {name: this.name, animal: this.animal}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.animal = result;
+    });
+  }
+
+}
+
+
+@Component({
+  selector: 'dialog-overview-example-dialog',
+  templateUrl: 'dialog-overview-example-dialog.html',
+})
+export class DialogOverviewExampleDialog {
+
+  constructor(
+    public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 
 }

@@ -1,26 +1,51 @@
 <p>list works!</p>
-<!-- <p>{{days}}</p>
 <div class="container">
     <table class="table">
     <tr>
-        <td v-for="day in days">
+        <td *ngFor="let day of days">
             <table class="table">
-                <tr>
-                    <th>aaa</th>
+                <tr (click)="swapSpecialDay(day)">
+                    <th [ngClass]="day.is_special == true ? 'red' : 'green'">{{ day.number }}</th>
                 </tr>
                 <tr>
-                    <td>abc</td>    
+                    <td>
+                      <button mat-raised-button [matMenuTriggerFor]="menu1">{{day.s1_worker}}</button>
+                      <mat-menu #menu1="matMenu">
+                        <button (click)="setWorkerToShift(day, worker, 1)" mat-menu-item *ngFor="let worker of workers">{{worker.short_name}}</button>
+                      </mat-menu>
+                    </td>
+                </tr>
+                <tr>
+                  <td>
+                    <button mat-button [matMenuTriggerFor]="menu2">{{day.s2_worker}}</button>
+                    <mat-menu #menu2="matMenu">
+                      <button (click)="setWorkerToShift(day, worker, 2)" mat-menu-item *ngFor="let worker of workers">{{worker.short_name}}</button>
+                    </mat-menu>
+                  </td>
+              </tr>
+                <tr>
+                  <td>
+                    <button mat-button [matMenuTriggerFor]="menu3">{{day.s3_worker}}</button>
+                    <mat-menu #menu3="matMenu">
+                      <button (click)="setWorkerToShift(day, worker, 3)" mat-menu-item *ngFor="let worker of workers">{{worker.short_name}}</button>
+                    </mat-menu>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <button mat-button [matMenuTriggerFor]="menu4">{{day.s4_worker}}</button>
+                    <mat-menu #menu4="matMenu">
+                      <button (click)="setWorkerToShift(day, worker, 4)" mat-menu-item *ngFor="let worker of workers">{{worker.short_name}}</button>
+                    </mat-menu>
+                  </td>
                 </tr>
             </table>
         </td>
     </tr>
 </table>
-</div> -->
+</div>
 
-<table class="table">
-    <tbody>
-    <tr *ngFor="let day of days">
-        <td>{{day}}</td>
-    </tr>
-</tbody>
-</table>
+<mat-list>
+  <mat-list-item *ngFor="let worker of workers"> {{worker.detail_string}} </mat-list-item>
+</mat-list>
+

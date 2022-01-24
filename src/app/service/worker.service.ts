@@ -14,4 +14,6 @@ export class WorkerService {
     getWorkers(): Observable<Worker[]> {
         return this.httpClient.get<Worker[]>(`${this.baseUrl}/workers/`)
     }
+
+
   }

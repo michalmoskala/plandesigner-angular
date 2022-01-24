@@ -18,9 +18,8 @@ export class MonthService {
         return this.httpClient.get<Month[]>(`${this.baseUrl}/months/`)
     }
 
-    removeMonth(id: number)  {
-        console.log(id)
-        return this.httpClient.delete(`${this.baseUrl}/delete_month/${id}/`).subscribe(() => console.log("month deleted"))
+    removeMonth(id: number): Observable<Month[]>{
+        return this.httpClient.delete<Month[]>(`${this.baseUrl}/delete_month/${id}/`)
     }
 
     getMonth(id: number) {
@@ -29,6 +28,14 @@ export class MonthService {
     
     getWorkerDetailString(id: number) {
         return this.httpClient.get<Worker_Details[]>(`${this.baseUrl}/month/${id}/workers/`)
+    }
+
+    setWorkerToShift(month_id, worker_name, day, which_time) {
+        return this.httpClient.put<Worker_Details[]>(`${this.baseUrl}/set_worker/`, {'month_id': month_id, 'worker_name': worker_name, 'day': day, 'which_time': which_time})
+    }
+
+    swapSpecialDay(month_id, day_number) {
+        return this.httpClient.put<Worker_Details[]>(`${this.baseUrl}/special_day/`, {'day': day_number, 'month_id': month_id})
     }
 }
 
